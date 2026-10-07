@@ -1,0 +1,25 @@
+baseline,direction,case,refills_per_iteration,current_ns_lower,current_ns_estimate,current_ns_upper,time_change_pct_lower,time_change_pct_estimate,time_change_pct_upper,p_value_display,criterion_result
+byte_loop,ltr,bulk/aligned,4,6.5094,6.6137,6.7282,-58.294,-57.842,-57.291,0.00,improved
+byte_loop,ltr,bulk/unaligned,8,13.084,13.257,13.478,-54.489,-53.903,-53.282,0.00,improved
+byte_loop,ltr,eight-byte boundary,6,9.6819,9.7569,9.8773,-59.247,-58.360,-57.627,0.00,improved
+byte_loop,ltr,short tails,42,86.374,87.041,88.013,-28.486,-28.011,-27.321,0.00,improved
+byte_loop,ltr,empty input,6,6.5292,6.5812,6.6607,-1.5807,-0.5967,0.3235,0.23,no change detected
+byte_loop,ltr,no whole-byte capacity,8,8.4697,8.5151,8.5768,-8.1451,-6.3849,-4.7757,0.00,improved
+byte_loop,rtl,bulk/aligned,4,6.1274,6.1374,6.1490,-68.927,-65.884,-63.064,0.00,improved
+byte_loop,rtl,bulk/unaligned,8,12.090,12.202,12.338,-57.396,-57.118,-56.760,0.00,improved
+byte_loop,rtl,eight-byte boundary,6,8.9116,8.9731,9.0574,-60.201,-59.896,-59.499,0.00,improved
+byte_loop,rtl,short tails,42,81.216,81.430,81.641,-31.013,-30.704,-30.411,0.00,improved
+byte_loop,rtl,empty input,6,8.8999,9.4181,9.9195,-19.041,-15.677,-12.071,0.00,improved
+byte_loop,rtl,no whole-byte capacity,8,8.4509,8.4868,8.5241,-45.990,-45.022,-43.669,0.00,improved
+padded_copy,ltr,bulk/aligned,4,6.1924,6.2536,6.3367,-75.836,-75.640,-75.345,0.00,improved
+padded_copy,ltr,bulk/unaligned,8,12.602,12.690,12.790,-74.917,-74.569,-74.132,0.00,improved
+padded_copy,ltr,eight-byte boundary,6,9.4097,9.4543,9.5083,-74.978,-74.845,-74.725,0.00,improved
+padded_copy,ltr,short tails,42,83.851,84.137,84.480,-60.749,-60.601,-60.427,0.00,improved
+padded_copy,ltr,empty input,6,6.2969,6.3358,6.3892,-52.188,-48.538,-44.315,0.00,improved
+padded_copy,ltr,no whole-byte capacity,8,8.3921,8.4994,8.6656,-60.864,-59.068,-56.918,0.00,improved
+padded_copy,rtl,bulk/aligned,4,6.0993,6.2015,6.3387,-76.247,-76.043,-75.803,0.00,improved
+padded_copy,rtl,bulk/unaligned,8,11.950,11.986,12.028,-76.378,-76.298,-76.217,0.00,improved
+padded_copy,rtl,eight-byte boundary,6,8.9743,9.0630,9.1641,-76.164,-75.974,-75.725,0.00,improved
+padded_copy,rtl,short tails,42,81.239,81.441,81.651,-62.124,-61.987,-61.856,0.00,improved
+padded_copy,rtl,empty input,6,8.4480,8.9433,9.4597,-31.555,-25.931,-19.005,0.00,improved
+padded_copy,rtl,no whole-byte capacity,8,8.4294,8.4811,8.5402,-59.840,-57.736,-55.251,0.00,improved

@@ -1,0 +1,25 @@
+baseline,direction,case,refills_per_iteration,current_ns_lower,current_ns_estimate,current_ns_upper,time_change_pct_lower,time_change_pct_estimate,time_change_pct_upper,p_value_display,criterion_result
+byte_loop,ltr,bulk/aligned,4,6.484851,6.516431,6.552064,-62.653906,-62.313519,-61.995928,0.00,improved
+byte_loop,ltr,bulk/unaligned,8,12.646508,12.794695,13.050213,-60.825915,-60.343572,-59.814668,0.00,improved
+byte_loop,ltr,eight-byte boundary,6,9.333222,9.407399,9.501347,-62.135159,-61.654057,-61.218477,0.00,improved
+byte_loop,ltr,empty input,6,4.810067,4.826860,4.844982,-28.148836,-26.649214,-25.414999,0.00,improved
+byte_loop,ltr,no whole-byte capacity,8,6.380019,6.395172,6.411742,-23.174371,-22.615815,-22.014265,0.00,improved
+byte_loop,ltr,short tails,42,155.094049,156.412414,157.973353,9.731367,11.231550,12.591527,0.00,regressed
+byte_loop,rtl,bulk/aligned,4,6.627272,6.695327,6.796268,-60.580707,-60.092862,-59.566877,0.00,improved
+byte_loop,rtl,bulk/unaligned,8,12.527840,12.564532,12.604484,-63.285202,-62.127939,-61.117619,0.00,improved
+byte_loop,rtl,eight-byte boundary,6,9.294428,9.328586,9.364104,-62.515387,-62.198573,-61.863279,0.00,improved
+byte_loop,rtl,empty input,6,5.239993,5.268125,5.296158,-17.373048,-16.721636,-16.081194,0.00,improved
+byte_loop,rtl,no whole-byte capacity,8,9.633567,9.670138,9.707739,23.223392,24.222870,25.226487,0.00,regressed
+byte_loop,rtl,short tails,42,150.180648,150.670947,151.199998,7.351199,9.433957,11.053681,0.00,regressed
+padded_copy,ltr,bulk/aligned,4,6.674732,6.914152,7.225139,-67.997391,-66.916079,-65.844558,0.00,improved
+padded_copy,ltr,bulk/unaligned,8,12.683420,12.975451,13.346585,-75.263527,-74.840430,-74.297767,0.00,improved
+padded_copy,ltr,eight-byte boundary,6,9.420090,9.528738,9.721517,-71.523366,-71.183489,-70.795565,0.00,improved
+padded_copy,ltr,empty input,6,4.967279,4.975277,4.983686,-24.443170,-23.904776,-23.390553,0.00,improved
+padded_copy,ltr,no whole-byte capacity,8,6.695089,6.727619,6.769791,-21.977348,-21.195981,-20.461090,0.00,improved
+padded_copy,ltr,short tails,42,145.614546,145.912086,146.222796,-44.479804,-44.074098,-43.677425,0.00,improved
+padded_copy,rtl,bulk/aligned,4,6.455607,6.516234,6.616009,-67.116003,-66.758634,-66.322800,0.00,improved
+padded_copy,rtl,bulk/unaligned,8,12.767559,12.790572,12.815004,-73.229691,-73.081116,-72.926325,0.00,improved
+padded_copy,rtl,eight-byte boundary,6,9.445738,9.468499,9.491624,-69.968588,-69.795503,-69.630692,0.00,improved
+padded_copy,rtl,empty input,6,6.095937,6.242117,6.381529,2.441284,4.649495,6.814097,0.00,regressed
+padded_copy,rtl,no whole-byte capacity,8,7.316703,7.414354,7.543551,-15.278881,-14.334249,-13.293137,0.00,improved
+padded_copy,rtl,short tails,42,146.805181,147.574076,148.445791,-40.710402,-40.071987,-39.400749,0.00,improved
