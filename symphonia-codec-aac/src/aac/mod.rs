@@ -12,7 +12,7 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 use symphonia_core::audio::{
-    AsGenericAudioBufferRef, AudioBuffer, AudioSpec, GenericAudioBufferRef,
+    AsGenericAudioBufferRef, AudioBuffer, AudioSpec, GenericAudioBufferRef, layouts,
 };
 use symphonia_core::codecs::CodecInfo;
 use symphonia_core::codecs::audio::well_known::CODEC_ID_AAC;
@@ -42,6 +42,7 @@ use common::*;
 pub struct AacDecoder {
     // info: NACodecInfoRef,
     asc: AudioSpecificConfig,
+    channel_map: &'static [usize],
     pairs: Vec<cpe::ChannelPair>,
     dsp: dsp::Dsp,
     sbinfo: GASubbandInfo,
@@ -88,13 +89,21 @@ impl AacDecoder {
         };
 
         // Check complexity.
-        if asc.object_type != AudioObjectType::Lc
-            || asc.sbr_present
-            || channels.count() > 2
-            || asc.samples != 1024
-        {
+        if asc.object_type != AudioObjectType::Lc || asc.sbr_present || asc.samples != 1024 {
             return unsupported_error("aac: aac too complex");
         }
+
+        // Map predefined AAC layouts to channel indexes.
+        let channel_map: &'static [usize] = match channels.count() {
+            1 => &[0],
+            2 => &[0, 1],
+            3 if channels == layouts::CHANNEL_LAYOUT_AAC_3P0 => &[2, 0, 1],
+            4 if channels == layouts::CHANNEL_LAYOUT_AAC_4P0 => &[2, 0, 1, 3],
+            5 if channels == layouts::CHANNEL_LAYOUT_AAC_5P0 => &[2, 0, 1, 3, 4],
+            6 if channels == layouts::CHANNEL_LAYOUT_AAC_5P1 => &[2, 0, 1, 4, 5, 3],
+            8 if channels == layouts::CHANNEL_LAYOUT_AAC_7P1 => &[2, 6, 7, 0, 1, 4, 5, 3],
+            _ => return unsupported_error("aac: unsupported channel layout"),
+        };
 
         // Clone and amend the codec parameters with information from the extra data.
         let mut params = params.clone();
@@ -105,10 +114,25 @@ impl AacDecoder {
 
         let buf = AudioBuffer::new(AudioSpec::new(asc.sample_rate, channels), asc.samples);
 
-        Ok(AacDecoder { asc, pairs: Vec::new(), dsp: dsp::Dsp::new(), sbinfo, params, buf })
+        Ok(AacDecoder {
+            asc,
+            channel_map,
+            pairs: Vec::new(),
+            dsp: dsp::Dsp::new(),
+            sbinfo,
+            params,
+            buf,
+        })
     }
 
     fn set_pair(&mut self, pair_no: usize, channel: usize, pair: bool) -> Result<()> {
+        validate!(channel < self.channel_map.len());
+        if pair {
+            validate!(channel + 1 < self.channel_map.len());
+            validate!(self.channel_map[channel + 1] == self.channel_map[channel] + 1);
+        }
+        let channel = self.channel_map[channel];
+
         if self.pairs.len() <= pair_no {
             self.pairs.push(cpe::ChannelPair::new(pair, channel, self.sbinfo));
         }
@@ -116,9 +140,6 @@ impl AacDecoder {
             validate!(self.pairs[pair_no].channel == channel);
             validate!(self.pairs[pair_no].is_pair == pair);
         }
-
-        let max_channels = self.asc.channels.as_ref().map_or(0, |channels| channels.count());
-        validate!(if pair { channel + 1 } else { channel } < max_channels);
 
         Ok(())
     }
@@ -302,3 +323,7 @@ impl RegisterableAudioDecoder for AacDecoder {
         )]
     }
 }
+
+#[cfg(test)]
+#[path = "tests/multichannel.rs"]
+mod tests;
